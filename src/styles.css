@@ -1,0 +1,264 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Geist + Inter fonts are loaded via <link> tags in src/routes/__root.tsx */
+
+@theme inline {
+  --font-sans: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Geist", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--destructive);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-ember: var(--ember);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+}
+
+:root {
+  --background: oklch(0 0 0);                  /* pure #000 */
+  --foreground: oklch(0.985 0 0);              /* near white */
+  --card: oklch(0.04 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.06 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);                  /* white */
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.12 0 0);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.09 0 0);
+  --muted-foreground: oklch(0.62 0 0);
+  --accent: oklch(0.12 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.62 0.21 25);          /* red */
+  --destructive-foreground: oklch(0.985 0 0);
+  --success: oklch(0.72 0.17 152);             /* green */
+  --warning: oklch(0.78 0.17 65);              /* orange */
+  --brand: oklch(0.72 0.18 50);                /* signature orange */
+  --brand-foreground: oklch(0.08 0 0);
+  --ember: oklch(0.58 0.22 28);                /* ember red */
+  --border: oklch(0.18 0 0);
+  --input: oklch(0.18 0 0);
+  --ring: oklch(0.72 0.18 50);
+  --sidebar: oklch(0 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.16 0 0);
+  --sidebar-accent: oklch(0.10 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+}
+
+.dark { color-scheme: dark; }
+
+@layer base {
+  html, body, #root {
+    background-color: #000;
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  * { border-color: var(--color-border); }
+
+  body {
+    background-color: #000;
+    min-height: 100vh;
+  }
+
+  ::selection { background: #fff; color: #000; }
+
+  /* Subtle scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #000; }
+  ::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: #2a2a2a; }
+}
+
+@layer utilities {
+  .font-mono { font-family: var(--font-mono); }
+  .text-balance { text-wrap: balance; }
+
+  .hairline { border-color: oklch(0.18 0 0); }
+
+  .dot-grid {
+    background-image: radial-gradient(circle, oklch(0.18 0 0) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Scramble text needs fixed width so the layout doesn't jitter */
+  .scramble-text {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.005em;
+  }
+
+  /* ===== Brand accents (orange / ember red) ===== */
+  .text-brand { color: var(--color-brand); }
+  .bg-brand { background-color: var(--color-brand); }
+  .border-brand { border-color: var(--color-brand); }
+  .text-ember { color: var(--color-ember); }
+  .border-ember { border-color: var(--color-ember); }
+
+  /* Tiny status dot with a soft orange glow + pulse */
+  .brand-dot {
+    width: 7px; height: 7px; border-radius: 9999px;
+    background: var(--color-brand);
+    box-shadow: 0 0 0 3px oklch(0.72 0.18 50 / 0.18), 0 0 12px oklch(0.72 0.18 50 / 0.55);
+    animation: brand-pulse 2.2s ease-in-out infinite;
+    display: inline-block;
+  }
+  .ember-dot {
+    width: 7px; height: 7px; border-radius: 9999px;
+    background: var(--color-ember);
+    box-shadow: 0 0 0 3px oklch(0.58 0.22 28 / 0.18);
+    display: inline-block;
+  }
+
+  @keyframes brand-pulse {
+    0%, 100% { box-shadow: 0 0 0 3px oklch(0.72 0.18 50 / 0.18), 0 0 8px oklch(0.72 0.18 50 / 0.45); }
+    50%      { box-shadow: 0 0 0 4px oklch(0.72 0.18 50 / 0.28), 0 0 18px oklch(0.72 0.18 50 / 0.75); }
+  }
+
+  /* Blackbox-style dashed flow line that travels horizontally */
+  .flow-line {
+    position: relative;
+    height: 1px;
+    background-image: linear-gradient(to right, var(--color-brand) 50%, transparent 0);
+    background-size: 10px 1px;
+    background-repeat: repeat-x;
+    background-position: 0 0;
+    animation: flow-march 1.4s linear infinite;
+    opacity: 0.55;
+  }
+  @keyframes flow-march {
+    to { background-position: 10px 0; }
+  }
+
+  /* "ENCRYPTED" / "LIVE" pill */
+  .brand-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 2px 8px; border-radius: 4px;
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+    background: oklch(0.72 0.18 50 / 0.08);
+    border: 1px solid oklch(0.72 0.18 50 / 0.35);
+  }
+  .ember-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 2px 8px; border-radius: 4px;
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ember);
+    background: oklch(0.58 0.22 28 / 0.08);
+    border: 1px solid oklch(0.58 0.22 28 / 0.35);
+  }
+
+  /* Soft top edge glow used at the top of dark hero sections */
+  .brand-top-glow {
+    position: relative;
+  }
+  .brand-top-glow::before {
+    content: "";
+    position: absolute; inset: 0 0 auto 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-brand) 35%, var(--color-ember) 65%, transparent);
+    opacity: 0.6;
+  }
+
+  .ring-brand:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; }
+}
+
+@layer components {
+  .auth-input {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-foreground);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 150ms ease, background-color 150ms ease;
+    font-family: var(--font-sans);
+  }
+  .auth-input::placeholder { color: var(--color-muted-foreground); }
+  .auth-input:focus { border-color: var(--color-brand); background: rgba(255,255,255,0.04); box-shadow: 0 0 0 3px oklch(0.72 0.18 50 / 0.18); }
+
+  .vb-input {
+    width: 100%;
+    height: 38px;
+    padding: 0 12px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    color: var(--color-foreground);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 150ms ease;
+    font-family: var(--font-sans);
+  }
+  .vb-input::placeholder { color: var(--color-muted-foreground); }
+  .vb-input:focus { border-color: var(--color-brand); box-shadow: 0 0 0 3px oklch(0.72 0.18 50 / 0.15); }
+
+  .vb-textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    color: var(--color-foreground);
+    font-size: 13px;
+    outline: none;
+    font-family: var(--font-sans);
+    resize: vertical;
+  }
+  .vb-textarea:focus { border-color: rgba(255,255,255,0.45); }
+}
+
+/* Minimal vibrant accents on small uppercase labels & secondary headings.
+   Big page <h1> titles are intentionally left untouched. */
+@layer base {
+  /* Form field labels (Labeled helper used across route files) — yellow */
+  label > div.font-mono.uppercase {
+    color: oklch(0.86 0.16 92);
+  }
+  /* Data table column headers — red */
+  thead tr.font-mono.uppercase th {
+    color: oklch(0.78 0.16 25);
+  }
+}
