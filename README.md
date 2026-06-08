@@ -1,6 +1,14 @@
 # File Previewer — Local Setup (VS Code)
 
 This is a TanStack Start + React + Tailwind + Supabase app.
+## ⚡ Technical Architecture & Performance Optimization
+
+VendorBridge is built using a bleeding-edge full-stack architecture optimized for speed, real-time data synchronization, and type safety:
+
+- **Frontend Core & SSR:** Engineered with **TanStack Start** and **TypeScript**, utilizing high-performance file-based routing and Server-Side Rendering (SSR) to achieve near-instantaneous first-contentful paint.
+- **UI Architecture:** Tailored dark mode design layer using **Tailwind CSS** built on top of accessible **shadcn/ui** structural primitives.
+- **Backend & Real-Time Engine:** Leverages a **Supabase** infrastructure for secure user authentication proxying, real-time database listener signals, and relational query storage.
+- **Compilation Build Layer:** Bundled via **Vite** and executed over the **Bun** runtime environment, maximizing compilation throughput and system execution speeds.
 
 ## Prerequisites
 - [Bun](https://bun.sh) (recommended) **or** Node.js 20+
